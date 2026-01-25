@@ -17,9 +17,16 @@ const PORT = process.env.PORT || 3000;
 
 // Connect to MongoDB
 const mongoURI = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/kidspsicologo';
-mongoose.connect(mongoURI)
+
+console.log('Intentando conectar a MongoDB...');
+console.log('URI (ocultando contraseña):', mongoURI.replace(/\/\/([^:]+):([^@]+)@/, '//$1:****@'));
+
+mongoose.connect(mongoURI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+})
 .then(async () => {
-  console.log('Connected to MongoDB');
+  console.log('✅ Conectado exitosamente a MongoDB');
   try {
     const existingUser = await User.findOne({ email: 'admin@kidspsicologo.com' });
     if (!existingUser) {
@@ -31,15 +38,18 @@ mongoose.connect(mongoURI)
         role: 'admin'
       });
       await defaultUser.save();
-      console.log('Default admin user created');
+      console.log('✅ Usuario administrador por defecto creado');
     } else {
-      console.log('Default admin user already exists');
+      console.log('ℹ️  Usuario administrador ya existe');
     }
   } catch (error) {
-    console.error('Error seeding default user:', error);
+    console.error('❌ Error creando usuario por defecto:', error);
   }
 })
-.catch(err => console.error('MongoDB connection error:', err));
+.catch(err => {
+  console.error('❌ Error de conexión a MongoDB:', err.message);
+  console.error('Detalles completos:', err);
+});
 
 // Middleware
 app.use(cors());
@@ -64,6 +74,6 @@ module.exports = app;
 // Local development
 if (require.main === module) {
   app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
+    console.log(`🚀 Servidor corriendo en puerto ${PORT}`);
   });
 }
