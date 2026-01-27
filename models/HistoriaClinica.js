@@ -25,16 +25,13 @@ const sesionSchema = new mongoose.Schema({
 const historiaClinicaSchema = new mongoose.Schema({
   nombrePaciente: {
     type: String,
-    required: true,
     trim: true
   },
   fechaNacimiento: {
-    type: Date,
-    required: true
+    type: Date
   },
   genero: {
     type: String,
-    required: true,
     enum: ['masculino', 'femenino', 'otro']
   },
   grado: {
@@ -54,16 +51,21 @@ const historiaClinicaSchema = new mongoose.Schema({
     trim: true,
     lowercase: true
   },
-  motivoConsulta: {
+  acompanamiento: {
     type: String,
-    required: true
+    enum: ['', 'acompanamiento_padre', 'acompanante_estudiante']
   },
-  antecedentesMedicos: {
+  descripcionAcompanamientoPadre: {
+    type: String
+  },
+  motivoConsulta: {
     type: String
   },
   sintomasActuales: {
-    type: String,
-    required: true
+    type: String
+  },
+  antecedentesMedicos: {
+    type: String
   },
   diagnostico: {
     type: String
