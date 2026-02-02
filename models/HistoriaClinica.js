@@ -34,9 +34,14 @@ const historiaClinicaSchema = new mongoose.Schema({
     type: String,
     enum: ['masculino', 'femenino', 'otro']
   },
-  grado: {
+  gradoPaciente: {
     type: String,
     trim: true
+  },
+  nivelRiesgo: {
+    type: String,
+    enum: ['', 'critico', 'alto', 'medio', 'bajo'],
+    default: ''
   },
   direccion: {
     type: String,
@@ -58,6 +63,18 @@ const historiaClinicaSchema = new mongoose.Schema({
   descripcionAcompanamientoPadre: {
     type: String
   },
+  descripcionAcompanamientoFamiliar: {
+    type: String
+  },
+  sesionesAcompanamientoFamiliar: [{
+    descripcion: {
+      type: String
+    },
+    fecha: {
+      type: Date,
+      default: Date.now
+    }
+  }],
   motivoConsulta: {
     type: String
   },

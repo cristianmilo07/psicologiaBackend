@@ -61,6 +61,7 @@ router.post('/', verifyToken, upload.array('archivos'), async (req, res) => {
     const historiaData = {
       ...req.body,
       sesiones: req.body.sesiones ? JSON.parse(req.body.sesiones) : [],
+      sesionesAcompanamientoFamiliar: req.body.sesionesAcompanamientoFamiliar ? JSON.parse(req.body.sesionesAcompanamientoFamiliar) : [],
       archivos: archivos,
       createdBy: req.userId
     };
@@ -115,6 +116,7 @@ router.put('/:id', verifyToken, upload.array('archivos'), async (req, res) => {
     const updateData = {
       ...req.body,
       sesiones: req.body.sesiones ? JSON.parse(req.body.sesiones) : [],
+      sesionesAcompanamientoFamiliar: req.body.sesionesAcompanamientoFamiliar ? JSON.parse(req.body.sesionesAcompanamientoFamiliar) : [],
       archivos: [...existingArchivos, ...archivos]
     };
 
