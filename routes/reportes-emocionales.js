@@ -68,7 +68,7 @@ router.put('/:id', verifyToken, async (req, res) => {
   try {
     const reporte = await ReporteEmocional.findOneAndUpdate(
       { _id: req.params.id, createdBy: req.userId },
-      req.body,
+      { ...req.body, updatedAt: new Date() },
       { new: true }
     );
     if (!reporte) {

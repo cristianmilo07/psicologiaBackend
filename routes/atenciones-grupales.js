@@ -86,7 +86,7 @@ router.put('/:id', verifyToken, async (req, res) => {
   try {
     const atencion = await AtencionesGrupales.findOneAndUpdate(
       { _id: req.params.id, createdBy: req.userId },
-      req.body,
+      { ...req.body, updatedAt: new Date() },
       { new: true }
     );
     if (!atencion) {

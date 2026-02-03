@@ -266,4 +266,10 @@ reporteEmocionalSchema.pre('save', function(next) {
   next();
 });
 
+// Update the updatedAt field before findOneAndUpdate
+reporteEmocionalSchema.pre('findOneAndUpdate', function(next) {
+  this.set({ updatedAt: Date.now() });
+  next();
+});
+
 module.exports = mongoose.model('ReporteEmocional', reporteEmocionalSchema);
