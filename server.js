@@ -11,6 +11,7 @@ const atencionesGrupalesRoutes = require('./routes/atenciones-grupales');
 const citasRoutes = require('./routes/citas');
 const bcrypt = require('bcryptjs');
 const User = require('./models/User');
+const testsRoutes = require('./routes/tests');
 
 dotenv.config();
 
@@ -67,6 +68,7 @@ app.use('/api/historias', historiasRoutes);
 app.use('/api/reportes-emocionales', reportesEmocionalesRoutes);
 app.use('/api/atenciones-grupales', atencionesGrupalesRoutes);
 app.use('/api/citas', citasRoutes);
+app.use('/api/tests', testsRoutes);
 
 // Health check
 app.get('/api/health', (req, res) => {
